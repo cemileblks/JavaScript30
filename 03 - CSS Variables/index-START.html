@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Scoped CSS Variables and JS</title>
   <link rel="icon" href="https://fav.farm/🔥" />
 </head>
+
 <body>
   <h2>Update CSS Variables with <span class='hl'>JS</span></h2>
 
@@ -19,9 +21,27 @@
     <input id="base" type="color" name="base" value="#ffc600">
   </div>
 
-  <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500">
+  <img
+    src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?q=80&w=1544&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">
 
   <style>
+
+    :root {
+      --base: #ffc600;
+      --spacing: 10px;
+      --blur: 10px;
+    }
+
+    img {
+      width: 600px;
+      padding: var(--spacing);
+      background: var(--base);
+      filter: blur(var(--blur));
+    }
+
+    .hl {
+      color: var(--base);
+    }
 
     /*
       misc styles, nothing to do with CSS variables
@@ -45,8 +65,29 @@
     }
   </style>
 
+
+
   <script>
+      const inputs = document.querySelectorAll('.controls input');
+      
+      function handleUpdate() {
+        const suffix = this.dataset.sizing || '';
+        // console.log(this.name);
+        console.log(document.documentElement);
+        document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix)
+
+
+        // console.log(this); // 
+        // console.log(this.dataset); //px 
+
+
+      }
+
+      inputs.forEach(input => input.addEventListener('change', handleUpdate));
+      inputs.forEach(input => input.addEventListener('mousemove', handleUpdate));
+
   </script>
 
 </body>
+
 </html>
