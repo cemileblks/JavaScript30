@@ -36,19 +36,71 @@
       'Billings, Josh', 'Birrell, Augustine', 'Blair, Tony', 'Beecher, Henry', 'Biondo, Frank'
     ];
     
-    // Array.prototype.filter()
-    // 1. Filter the list of inventors for those who were born in the 1500's
+    // Array.prototype.filter() ------------------------------------------------------------------
+    // // 1. Filter the list of inventors for those who were born in the 1500's
+    // const filteredInventors = inventors.filter((inventor => inventor.year < 1600 && inventor.year >= 1500));
 
-    // Array.prototype.map()
+    // console.table(filteredInventors);
+
+    // // Array.prototype.map() ------------------------------------------------------------------
     // 2. Give us an array of the inventors first and last names
+    const mappedInventors = inventors.map(function(inventor) {
+      return (inventor.first + ' ' + inventor.last)
+    });
 
-    // Array.prototype.sort()
+    const shoterMappedInventors = inventors.map(inventor => inventor.first + " " + inventor.last);
+
+    console.log(mappedInventors);
+
+    console.table(shoterMappedInventors);
+
+    // Array.prototype.sort() ------------------------------------------------------------------
     // 3. Sort the inventors by birthdate, oldest to youngest
 
-    // Array.prototype.reduce()
+    const orderedInventors = inventors.sort(function(a, b) {
+      return a.year - b.year;
+    });
+
+    console.log(orderedInventors);
+    console.table(orderedInventors);
+    const ordered = inventors.sort((a, b) => a.year > b.year ? 1 : -1);
+
+    console.log(ordered);
+    console.table(ordered);
+    console.table(ordered.reverse());
+
+    // Array.prototype.reduce()------------------------------------------------------------------
     // 4. How many years did all the inventors live all together?
 
-    // 5. Sort the inventors by years lived
+    const totalYears = inventors.reduce(sum, 0);
+
+    console.log(totalYears);
+
+    function sum(accumulator, inventor){
+      console.log(accumulator);
+      console.log(inventor.passed - inventor.year)
+      return accumulator + (inventor.passed - inventor.year);
+    };
+    //-----------------------------------> difference between these??
+    const wesTotalMethod = inventors.reduce((total, inventor) => {
+      return total + (inventor.passed - inventor.year);
+    }, 0)
+
+    console.log(wesTotalMethod);
+    
+
+    // 5. Sort the inventors by years lived ------------------------------------------------------------------
+    const newInventorswithage = inventors.map(inventor => inventor.first + " " + (inventor.passed - inventor.year));
+    console.log(newInventorswithage);
+
+    const oldest = inventors.sort(function(a, b){
+      const lastInventor = a.passed - a.year;
+      const nextInventor = b.passed - b.year;
+
+      return lastInventor > nextInventor ? 1 : -1;
+    });
+
+    console.table(oldest);
 
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
@@ -56,10 +108,28 @@
 
     // 7. sort Exercise
     // Sort the people alphabetically by last name
+    const alpha = people.sort(function(lastOne, nextOne){
+      const [aLast, aFirst] = lastOne.split(', ');
+      const [bLast, bFirst] = nextOne.split(', ');
 
-    // 8. Reduce Exercise
+      return aLast >bLast ? 1 : -1;
+    });
+
+    console.log(alpha);
+
+    // 8. Reduce Exercis e
     // Sum up the instances of each of these
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
+
+    const transportation = data.reduce(function(p, c) {
+      if(!p[c]) {
+        p[c] = 0;
+      }
+      p[c]++;
+      return p;
+    }, {});
+
+    console.log(transportation);
 
   </script>
 </body>
