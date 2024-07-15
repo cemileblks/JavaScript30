@@ -48,6 +48,8 @@
       flex: 1;
       justify-content: center;
       align-items: center;
+      display: flex;
+      flex-direction: column;
     }
 
     .panel1 { background-image:url(https://images.unsplash.com/photo-1506057213367-028a17ec52e5?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D); }
@@ -56,13 +58,24 @@
     .panel4 { background-image:url(https://images.unsplash.com/photo-1531000604546-0f62e21efc55?w=1600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mzl8fHxlbnwwfHx8fHw%3D); }
     .panel5 { background-image:url(https://images.unsplash.com/photo-1528994618239-4d83bbdb7a0f?w=1600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTl8fHxlbnwwfHx8fHw%3D); }
 
-    /* Flex Children */
+    /* Flex items */
     .panel > * {
       margin: 0;
       width: 100%;
       transition: transform 0.5s;
+      flex: 1 0 auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
+    .panel > *:first-child {transform: translateY(-100%);}
+    .panel.open-active > *:first-child {transform: translateY(0);}
+
+    .panel > *:last-child {transform: translateY(100%);}
+    .panel.panel.open-active > *:last-child {transform: translateY(0);}
+
+    
     .panel p {
       text-transform: uppercase;
       font-family: 'Amatic SC', cursive;
@@ -76,6 +89,7 @@
 
     .panel.open {
       font-size: 40px;
+      flex: 5;
     }
 
   </style>
@@ -110,6 +124,25 @@
   </div>
 
   <script>
+    const panels = document.querySelectorAll('.panel');
+
+
+    function toogleOpen() {
+      this.classList.toggle('open');
+    }
+
+    function textAnimation(e) {
+      // this.classList.toogle('open-active');
+      console.log(e.propertyName);
+      if(e.propertyName.includes('flex')) {
+        this.classList.toggle('open-active');
+      }
+    }
+
+    panels.forEach(panel => panel.addEventListener('click', toogleOpen));
+    panels.forEach(panel => panel.addEventListener('transitionend', textAnimation));
+
+
 
   </script>
 
