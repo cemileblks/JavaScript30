@@ -7,6 +7,21 @@
     <link rel="icon" href="https://fav.farm/🔥" />
   </head>
   <body>
-    <script></script>
+    <script>
+      const pressed = [];
+      const secretCode = 'cembal'
+      window.addEventListener('keyup', (e)=> {
+        // console.log(e);
+        pressed.push(e.key);
+        console.log(secretCode.length)
+        pressed.splice(-secretCode.length - 1, pressed.length - secretCode.length);
+        if(pressed.join('').toLocaleLowerCase().includes(secretCode)){
+          console.log('DING DING 💡');
+          cornify_add();
+
+        }
+        console.log(pressed);
+      });
+    </script>
   </body>
 </html>
